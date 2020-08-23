@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+}
+
+#game {
+    background-color: black;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+} 
+
+#score {
+    margin-bottom: 20px;
+}
+
+#next-btn {
+    margin-top: 15px;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,3 +1,38 @@
+let playerScore = 0;
+let computerScore = 0;
+let gameRound = 0;
+
+const gameField = document.getElementById('game');
+const score = document.getElementById('score');
+const buttons = document.getElementById('buttons');
+const rock = document.getElementById('rock');
+const scissors = document.getElementById('scissors');
+const paper = document.getElementById('paper');
+const computerScoreSpan = document.getElementById('computer-score');
+const playerScoreSpan = document.getElementById('player-score');
+const message = document.getElementById('message');
+const nextButton = document.getElementById('next-btn');
+
+rock.addEventListener('click', function () {
+    startRound('камень');
+});
+scissors.addEventListener('click', function () {
+    startRound('ножницы');
+});
+paper.addEventListener('click', function () {
+    startRound('бумага');
+});
+nextButton.addEventListener('click', function () {
+    if (gameRound < 5) {
+        showButtons();
+    } else {
+        showButtons();
+        buttons.classList.add('hidden');
+    }
+});
+
+
+
 function computerPlay() {
     const computerSelection = getRandomInt(3);
     switch (computerSelection) {
@@ -8,16 +43,6 @@ function computerPlay() {
         case 2:
             return 'бумага';
     }
-}
-
-function playerPlay() {
-    do {
-        let playerSelection = prompt('Камень, ножницы или бумага?');
-        playerSelection = playerSelection.toLowerCase();
-        if (playerSelection == 'камень' || playerSelection == 'ножницы' || playerSelection == 'бумага') {
-            return playerSelection;
-        }
-    } while (true);
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -38,38 +63,48 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    for (let gameRound = 1; gameRound <= 5; gameRound++) {
-        let  result = playRound(playerPlay(), computerPlay());
-        console.log(result);
-        if (result == 'Ничья!') {
-            playerScore++;
-            computerScore++;
-        } else {
-            if (result.substring(3, 7) == 'поб') {
-                playerScore++;
-            } else {
-                computerScore++;
-            }
-        }
-        console.log(`Компьютер: ${computerScore}, игрок: ${playerScore}`);
-    }
-    if (computerScore == playerScore) {
-        console.log('Ничья. Победила дружба!');
-    } else {
-        if (computerScore > playerScore) {
-            console.log('К сожалению, вы проиграли!');
-        } else {
-            console.log('Поздравляем, вы победили!');
-        }
-    }
-}
-
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-game();
+function showButtons() {
+    score.classList.remove('hidden');
+    buttons.classList.remove('hidden');
+    message.classList.add('hidden');
+    nextButton.classList.add('hidden');
+
+}
+
+function hideButtons() {
+    score.classList.add('hidden');
+    buttons.classList.add('hidden');
+    message.classList.remove('hidden');
+    nextButton.classList.remove('hidden');
+}
+
+function checkResult(result) {
+    if (result == 'Ничья!') {
+        playerScore++;
+        computerScore++;
+    } else {
+        if (result.substring(3, 7) == 'поб') {
+            playerScore++;
+        } else {
+            computerScore++;
+        }
+    }
+}
+
+function startRound(playerSelection) {
+    let result = playRound(playerSelection, computerPlay());
+    hideButtons();
+    checkResult(result);
+    computerScoreSpan.innerText = computerScore;
+    playerScoreSpan.innerText = playerScore;
+    message.innerHTML = result;
+    gameRound++;
+}
+
+
+
+
