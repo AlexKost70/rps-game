@@ -1,9 +1,9 @@
 body {
     margin: 0;
+    background-color: black;
 }
 
 #game {
-    background-color: black;
     min-height: 200px;
     display: flex;
     flex-direction: column;

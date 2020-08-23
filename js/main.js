@@ -1,3 +1,5 @@
+'use strict';
+
 let playerScore = 0;
 let computerScore = 0;
 let gameRound = 0;
@@ -87,7 +89,7 @@ function checkResult(result) {
         playerScore++;
         computerScore++;
     } else {
-        if (result.substring(3, 7) == 'поб') {
+        if (result.substring(3, 6) == 'поб') {
             playerScore++;
         } else {
             computerScore++;
